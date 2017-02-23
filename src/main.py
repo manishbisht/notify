@@ -19,11 +19,6 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
             'type': 'PlainText',
             'text': output
         },
-        'card': {
-            'type': 'Simple',
-            'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
-        },
         'reprompt': {
             'outputSpeech': {
                 'type': 'PlainText',
@@ -79,7 +74,7 @@ def getContest(intent, session):
 
     card_title = "Codeforces Contest Details"
     session_attributes = {}
-    should_end_session = False
+    should_end_session = True
     url = "http://codeforces.com/api/contest.list?gym=false"
     response = urllib.urlopen(url)
     data = json.loads(response.read())
