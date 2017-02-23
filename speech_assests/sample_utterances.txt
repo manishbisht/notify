@@ -4,3 +4,7 @@ AMAZON.HelpIntent help
 AMAZON.HelpIntent help me
 AMAZON.HelpIntent what can I ask
 AMAZON.HelpIntent what can I do
+
+AMAZON.CancelIntent cancel
+
+AMAZON.StopIntent stop
