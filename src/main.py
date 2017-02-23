@@ -51,8 +51,8 @@ def get_welcome_response():
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to the Amazon Alexa Notify Skills Kit. " \
-                    "Please tell me fro where you want the contest details by saying, " \
+    speech_output = "Welcome to the Amazon Alexa Contest Notify Skills Kit. " \
+                    "Please tell me from where you want the contest details by saying, " \
                     "When is the codeforces next contest."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
@@ -65,7 +65,7 @@ def get_welcome_response():
 
 def handle_session_end_request():
     card_title = "Session Ended"
-    speech_output = "Thank you for trying Amazon Alexa Notify Skills Kit. " \
+    speech_output = "Thank you for trying Amazon Alexa Contest Notify Skills Kit. " \
                     "Have a nice day! "
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
