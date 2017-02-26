@@ -1,7 +1,10 @@
 {
   "intents": [
     {
-      "intent": "AnswerIntent"
+      "intent": "CodeforcesContestIntent"
+    },
+    {
+      "intent": "HackerRankContestIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"
