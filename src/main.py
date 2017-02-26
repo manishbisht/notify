@@ -2,14 +2,13 @@
 This sample demonstrates a simple skill built with the Amazon Alexa Skills Kit.
 The Intent Schema, Custom Slots, and Sample Utterances for this skill, as well
 as testing instructions are located at http://amzn.to/1LzFrj6
-
 For additional samples, visit the Alexa Skills Kit Getting Started guide at
 http://amzn.to/1LGWsLG
 """
 
 from __future__ import print_function
-import urllib, json, time
-
+import urllib, json, time, urllib2
+import bs4
 
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -67,9 +66,58 @@ def handle_session_end_request():
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
+def getHackerrankContest(intent, session):
+    """ Get the hackerrank contest details and prepares the speech to reply to the user.
+    """
+    card_title = "HackerRank Contest Details"
+    session_attributes = {}
+    should_end_session = True
+    hackerrank_contest_link = "https://www.hackerrank.com/contests"
+    page = urllib2.urlopen(hackerrank_contest_link)
+    soup = bs4.BeautifulSoup(page, "html.parser")
+    list = soup.find_all("div", class_="active_contests")
+    speech_output = "Sorry, There are no upcoming contests."
+    if len(list) > 0:
+        list = list[0].find_all('li')
+        list.pop(0)
+        if len(list) > 0:
+            contest = []
+            for r in list:
+                temp = r.find_all('button')
+                if len(temp) > 0 and temp[0].text == "Sign Up":
+                    contest = r
+                    break
+            contest_name = contest.find_all('span')[0].text
+            start = contest.find_all('meta')[0]["content"]
+            start = time.strptime(start[0:19], '%Y-%m-%dT%H:%M:%S')
+            start = time.mktime(start)
+            end = contest.find_all('meta')[1]["content"]
+            end = time.strptime(end[0:19], '%Y-%m-%dT%H:%M:%S')
+            end = time.mktime(end)
+            then = int(time.time())
+            if then < start:
+                now = start
+            else:
+                now = end
+            d = divmod(now - then, 86400)
+            h = divmod(d[1], 3600)
+            m = divmod(h[1], 60)
+            s = m[1]
 
-def getContest(intent, session):
-    """ Get the contest details and prepares the speech to reply to the user.
+            if then < start:
+                speech_output = "The next contest " + contest_name + " on codeforces will start in next " \
+                        '%d days, %d hours, %d minutes, %d seconds' % (d[0], h[0], m[0], s)
+            else:
+                speech_output = "The contest " + contest_name + " on Hackerrank is running and it will end in " \
+                        '%d days, %d hours, %d minutes, %d seconds' % (d[0], h[0], m[0], s)
+
+    reprompt_text = "Please tell me from where you want the contest details by saying, " \
+                    "When is the codeforces next contest."
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+def getCodeforcesContest(intent, session):
+    """ Get the codeforces contest details and prepares the speech to reply to the user.
     """
 
     card_title = "Codeforces Contest Details"
@@ -85,7 +133,7 @@ def getContest(intent, session):
                 break
             result = d
         if result == []:
-            speech_output = "There are no upcoming contests "
+            speech_output = "Sorry, There are no upcoming contests."
         else:
             now = result["startTimeSeconds"]
             then = int(time.time())
@@ -93,7 +141,7 @@ def getContest(intent, session):
             h = divmod(d[1], 3600)
             m = divmod(h[1], 60)
             s = m[1]
-            speech_output = "The next contest " + result["name"] + " start in next " \
+            speech_output = "The next contest " + result["name"] + " will start in " \
                             '%d days, %d hours, %d minutes, %d seconds' % (d[0], h[0], m[0], s)
     else:
         speech_output = "Sorry, Right now we are facing technical issues. " \
@@ -136,8 +184,8 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "AnswerIntent":
-        return getContest(intent, session)
+    if intent_name == "CodeforcesContestIntent":
+        return getCodeforcesContest(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
@@ -148,7 +196,6 @@ def on_intent(intent_request, session):
 
 def on_session_ended(session_ended_request, session):
     """ Called when the user ends the session.
-
     Is not called when the skill returns should_end_session=true
     """
     print("on_session_ended requestId=" + session_ended_request['requestId'] +
@@ -184,4 +231,3 @@ def lambda_handler(event, context):
         return on_intent(event['request'], event['session'])
     elif event['request']['type'] == "SessionEndedRequest":
         return on_session_ended(event['request'], event['session'])
-
