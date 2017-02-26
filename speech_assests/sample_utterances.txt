@@ -1,4 +1,8 @@
-AnswerIntent When is the codeforces next contest
+CodeforcesContestIntent When is the codeforces next contest
+CodeforcesContestIntent Is there any contest running on codeforces
+
+HackerRankContestIntent When is the hackerrank next contest
+HackerRankContestIntent Is there any contest running on hackerrank
 
 AMAZON.HelpIntent help
 AMAZON.HelpIntent help me
