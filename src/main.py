@@ -240,45 +240,6 @@ def getCurrrentHackerrankContest(intent, session):
         card_title, speech_output, reprompt_text, should_end_session))
 
 
-def getCodeforcesContest(intent, session):
-    """ Get the codeforces contest details and prepares the speech to reply to the user.
-    """
-
-    card_title = "Codeforces Contest Details"
-    session_attributes = {}
-    should_end_session = True
-    url = "http://codeforces.com/api/contest.list?gym=false"
-    response = urllib.urlopen(url)
-    data = json.loads(response.read())
-    if data["status"] == "OK":
-        result = []
-        for d in data["result"]:
-            if d["phase"] != "BEFORE":
-                break
-            result = d
-        if result == []:
-            speech_output = "Sorry, There are no upcoming contests."
-        else:
-            now = result["startTimeSeconds"]
-            then = int(time.time())
-            d = divmod(now - then, 86400)
-            h = divmod(d[1], 3600)
-            m = divmod(h[1], 60)
-            s = m[1]
-            speech_output = "The next contest " + result["name"] + " will start in " \
-                                                                   '%d days, %d hours, %d minutes, %d seconds' % (
-                                                                       d[0], h[0], m[0], s)
-    else:
-        speech_output = "Sorry, Right now we are facing technical issues. " \
-                        "Please try again after some time."
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me from where you want the contest details by saying, " \
-                    "When is the codeforces next contest."
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-
 # --------------- Events ------------------
 
 def on_session_started(session_started_request, session):
