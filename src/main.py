@@ -7,7 +7,7 @@ http://amzn.to/1LGWsLG
 """
 
 from __future__ import print_function
-import urllib, json, time, urllib2
+import urllib, json, time, urllib2, datetime
 import bs4
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -65,6 +65,83 @@ def handle_session_end_request():
     should_end_session = True
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
+
+def getNextCodechefContest(intent, session):
+    """ Get the next codechef contest details and prepares the speech to reply to the user.
+    """
+    card_title = "Codechef Next Contest Details"
+    session_attributes = {}
+    should_end_session = True
+    codechef_contest_link = "https://www.codechef.com/contests"
+    page = urllib2.urlopen(codechef_contest_link)
+    soup = bs4.BeautifulSoup(page, "html.parser")
+    list = soup.find_all("h3")
+    contest = soup.find_all("table", class_="dataTable")
+    if list[0].text == "Future Contests":
+        contest = contest[0].find_all("tr")[1]
+    elif list[1].text == "Future Contests":
+        contest = contest[1].find_all("tr")[1]
+    else:
+        contest = None
+    if contest is not None:
+        contest = contest.find_all("td")
+        contest_name = contest[1].text
+        start = contest[2]["data-starttime"]
+        t = time.strptime(start[0:19], '%Y-%m-%dT%H:%M:%S')
+        if start[20] == '+':
+            t -= datetime.timedelta(hours=int(start[21:24]), minutes=int(start[25:]))
+        elif start[20] == '-':
+            t += datetime.timedelta(hours=int(start[21:24]), minutes=int(start[25:]))
+        now = time.mktime(t)
+        then = int(time.time())
+        d = divmod(now - then, 86400)
+        h = divmod(d[1], 3600)
+        m = divmod(h[1], 60)
+        s = m[1]
+        speech_output = "The next contest " + contest_name + " on codechef will start in " \
+                        '%d days, %d hours, %d minutes, %d seconds' % (d[0], h[0], m[0], s)
+    else:
+        speech_output = "There are no upcoming contest on codechef."
+    reprompt_text = ""
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+def getCurrrentCodechefContest(intent, session):
+    """ Get the current codechef contest details and prepares the speech to reply to the user.
+    """
+    card_title = "Codechef Current Contest Details"
+    session_attributes = {}
+    should_end_session = True
+    codechef_contest_link = "https://www.codechef.com/contests"
+    page = urllib2.urlopen(codechef_contest_link)
+    soup = bs4.BeautifulSoup(page, "html.parser")
+    list = soup.find_all("h3")
+    contest = soup.find_all("table", class_="dataTable")
+    if list[0].text == "Present Contests":
+        contest = contest[0].find_all("tr")[1]
+        contest = contest.find_all("td")
+        contest_name = contest[1].text
+        start = contest[3]["data-endtime"]
+        t = time.strptime(start[0:19], '%Y-%m-%dT%H:%M:%S')
+        if start[20] == '+':
+            t -= datetime.timedelta(hours=int(start[21:24]), minutes=int(start[25:]))
+        elif start[20] == '-':
+            t += datetime.timedelta(hours=int(start[21:24]), minutes=int(start[25:]))
+        now = time.mktime(t)
+        then = int(time.time())
+        d = divmod(now - then, 86400)
+        h = divmod(d[1], 3600)
+        m = divmod(h[1], 60)
+        s = m[1]
+        speech_output = "The contest " + contest_name + " on codechef is running. It will end in " \
+                        '%d days, %d hours, %d minutes, %d seconds' % (d[0], h[0], m[0], s)
+    else:
+        speech_output = "There is no contest running on codechef."
+
+    reprompt_text = ""
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
 
 def getHackerrankContest(intent, session):
     """ Get the hackerrank contest details and prepares the speech to reply to the user.
@@ -182,10 +259,13 @@ def on_intent(intent_request, session):
 
     intent = intent_request['intent']
     intent_name = intent_request['intent']['name']
+    website = intent_request['intent']['slots']['WebsiteName']['value']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "CodeforcesContestIntent":
-        return getCodeforcesContest(intent, session)
+    if intent_name == "NextContestIntent" and website.lower() == "codechef":
+        return getNextCodechefContest(intent, session)
+    elif intent_name == "CurrentContestIntent" and website.lower() == "codechef":
+        return getCurrentCodechefContest(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
