@@ -101,6 +101,42 @@ def getNextCodeforcesContest(intent, session):
         card_title, speech_output, reprompt_text, should_end_session))
 
 
+def getCurrrentCodeforcesContest(intent, session):
+    """ Get the current codeforces contest details and prepares the speech to reply to the user.
+    """
+    card_title = "Codeforces Current Contest Details"
+    session_attributes = {}
+    should_end_session = True
+    reprompt_text = ""
+    url = "http://codeforces.com/api/contest.list?gym=false"
+    response = urllib.urlopen(url)
+    data = json.loads(response.read())
+    speech_output = "There is no contest running on codeforces."
+    if data["status"] == "OK":
+        result = []
+        for d in data["result"]:
+            result = d
+            if d["phase"] == "CODING":
+                break
+            elif d["phase"] == "FINISHED":
+                result = []
+                break
+        if result == []:
+            speech_output = "There is no contest running on codeforces."
+        else:
+            now = result["startTimeSeconds"] + result["durationSeconds"]
+            then = int(time.time())
+            d = divmod(then - now, 86400)
+            h = divmod(d[1], 3600)
+            m = divmod(h[1], 60)
+            s = m[1]
+            speech_output = "The contest " + result["name"] + " will end in " \
+                                                              '%d days, %d hours, %d minutes, %d seconds' % (
+                                                                  d[0], h[0], m[0], s)
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+
 def getNextCodechefContest(intent, session):
     """ Get the next codechef contest details and prepares the speech to reply to the user.
     """
