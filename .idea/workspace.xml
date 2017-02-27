@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a72ab8e5-6bca-4924-819e-aa9ae0c4535f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/speech_assests/intent_schema.json" afterPath="$PROJECT_DIR$/speech_assests/intent_schema.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/speech_assests/sample_utterances.txt" afterPath="$PROJECT_DIR$/speech_assests/sample_utterances.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.py" afterPath="$PROJECT_DIR$/src/main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,13 +28,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1140">
-              <caret line="76" column="23" lean-forward="true" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+            <state relative-caret-position="609">
+              <caret line="312" column="67" lean-forward="false" selection-start-line="312" selection-start-column="67" selection-end-line="312" selection-end-column="67" />
               <folding>
                 <element signature="e#329#366#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="codechef.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/codechef.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="27" selection-end-column="62" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -46,22 +55,10 @@
       <file leaf-file-name="hackerrank.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hackerrank.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+            <state relative-caret-position="564">
+              <caret line="42" column="80" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="42" selection-end-column="80" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main (copy).py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main (copy).py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-210">
-              <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
-              <folding>
-                <element signature="e#330#367#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -77,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sample_utterances.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sample_utterances.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/speech_assests/sample_utterances.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="4" column="66" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="66" />
+              <caret line="4" column="66" lean-forward="false" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -99,6 +96,7 @@
         <option value="$PROJECT_DIR$/speech_assests/intent_schema.json" />
         <option value="$PROJECT_DIR$/speech_assests/sample_utterances.txt" />
         <option value="$PROJECT_DIR$/src/hackerrank.py" />
+        <option value="$PROJECT_DIR$/src/codechef.py" />
         <option value="$PROJECT_DIR$/src/main.py" />
       </list>
     </option>
@@ -130,7 +128,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -173,6 +170,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -205,7 +203,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24980783" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -242,6 +240,50 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="76" column="23" lean-forward="false" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
+          <folding>
+            <element signature="e#329#366#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hackerrank.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main (copy).py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/speech_assests/intent_schema.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/speech_assests/sample_utterances.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="24" column="37" lean-forward="false" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
           <folding>
@@ -262,7 +304,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="30" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -288,7 +329,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -304,36 +344,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="74" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="22" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main (copy).py">
+    <entry file="file://$PROJECT_DIR$/src/main (copy).py" />
+    <entry file="file://$PROJECT_DIR$/speech_assests/sample_utterances.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-210">
-          <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
-          <folding>
-            <element signature="e#330#367#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="4" column="66" lean-forward="false" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hackerrank.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+        <state relative-caret-position="564">
+          <caret line="42" column="80" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="42" selection-end-column="80" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" column="23" lean-forward="true" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="23" />
-          <folding>
-            <element signature="e#329#366#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -346,11 +374,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/speech_assests/sample_utterances.txt">
+    <entry file="file://$PROJECT_DIR$/src/codechef.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="66" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="66" />
-          <folding />
+        <state relative-caret-position="120">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="27" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="312" column="67" lean-forward="false" selection-start-line="312" selection-start-column="67" selection-end-line="312" selection-end-column="67" />
+          <folding>
+            <element signature="e#329#366#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
