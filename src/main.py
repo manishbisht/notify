@@ -68,6 +68,39 @@ def handle_session_end_request():
         card_title, speech_output, None, should_end_session))
 
 
+def getNextCodeforcesContest(intent, session):
+    """ Get the next codeforces contest details and prepares the speech to reply to the user.
+    """
+    card_title = "Codeforces Next Contest Details"
+    session_attributes = {}
+    should_end_session = True
+    reprompt_text = ""
+    url = "http://codeforces.com/api/contest.list?gym=false"
+    response = urllib.urlopen(url)
+    data = json.loads(response.read())
+    speech_output = "There are no upcoming contest on codeforces."
+    if data["status"] == "OK":
+        result = []
+        for d in data["result"]:
+            if d["phase"] == "FINISHED":
+                break
+            result = d
+        if result == []:
+            speech_output = "There are no upcoming contest on codeforces."
+        else:
+            now = result["startTimeSeconds"]
+            then = int(time.time())
+            d = divmod(now - then, 86400)
+            h = divmod(d[1], 3600)
+            m = divmod(h[1], 60)
+            s = m[1]
+            speech_output = "The next contest on codeforces " + result["name"] + " will start in " \
+                                                                                 '%d days, %d hours, %d minutes, %d seconds' % (
+                                                                                     d[0], h[0], m[0], s)
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+
 def getNextCodechefContest(intent, session):
     """ Get the next codechef contest details and prepares the speech to reply to the user.
     """
@@ -187,7 +220,7 @@ def getNextHackerrankContest(intent, session):
                     if then < start:
                         speech_output = "The next contest " + contest_name + " on hackerrank will start in next " \
                                                                              '%d days, %d hours, %d minutes, %d seconds' % (
-                                                                             d[0], h[0], m[0], s)
+                                                                                 d[0], h[0], m[0], s)
                         break
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
