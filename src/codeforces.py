@@ -11,7 +11,7 @@ if data["status"] == "OK":
             break
         result = d
     if result == []:
-        speech_output = "Sorry, There are no upcoming contests."
+        speech_output = "There are no upcoming contest on codeforces."
     else:
         now = result["startTimeSeconds"]
         then = int(time.time())
@@ -38,7 +38,7 @@ if data["status"] == "OK":
             result = []
             break
     if result == []:
-        speech_output = "Sorry, There are no upcoming contests."
+        speech_output = "There is no contest running on codeforces."
     else:
         now = result["startTimeSeconds"] + result["durationSeconds"]
         then = int(time.time())
