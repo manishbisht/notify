@@ -1,8 +1,7 @@
-CodeforcesContestIntent When is the codeforces next contest
-CodeforcesContestIntent Is there any contest running on codeforces
+NextContestIntent When is the {WebsiteName} next contest
+NextContestIntent when is the next {WebsiteName} contest
 
-HackerRankContestIntent When is the hackerrank next contest
-HackerRankContestIntent Is there any contest running on hackerrank
+CurrentContestIntent Is there any contest running on {WebsiteName}
 
 AMAZON.HelpIntent help
 AMAZON.HelpIntent help me
