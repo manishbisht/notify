@@ -1,10 +1,22 @@
 {
   "intents": [
     {
-      "intent": "CodeforcesContestIntent"
+      "intent": "NextContestIntent",
+      "slots": [
+        {
+          "name": "WebsiteName",
+          "type": "LIST_OF_WEBSITES"
+        }
+      ]
     },
     {
-      "intent": "HackerRankContestIntent"
+      "intent": "CurrentContestIntent",
+      "slots": [
+        {
+          "name": "WebsiteName",
+          "type": "LIST_OF_WEBSITES"
+        }
+      ]
     },
     {
       "intent": "AMAZON.HelpIntent"
