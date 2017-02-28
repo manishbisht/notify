@@ -58,6 +58,38 @@ def get_welcome_response():
         card_title, speech_output, reprompt_text, should_end_session))
 
 
+def getHelpContent():
+    session_attributes = {}
+    card_title = "Help Content"
+    speech_output = "I am here to update you about the current and future programming contest " \
+                    "available on different websites like codeforces, codechef and hackerrank. " \
+                    "You can ask me questions like When is the codefoces next contest, " \
+                    "when is the next hackerrank contest or Is there any contest running on codechef. " \
+                    "Right now I support only codeforces, codechef and hackerrank."
+    # If the user either does not reply to the welcome message or says something
+    # that is not understood, they will be prompted again with this text.
+    reprompt_text = "Please tell me from where you want the contest details by saying, " \
+                    "When is the codeforces next contest."
+    should_end_session = False
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+
+def getErrorMessage():
+    session_attributes = {}
+    card_title = "Help Content"
+    speech_output = "If you just said something then I can't understand it." \
+                    "Please ask me questions by saying When is the codefoces next contest, " \
+                    "or Is there any contest running on codechef. " \
+        # If the user either does not reply to the welcome message or says something
+    # that is not understood, they will be prompted again with this text.
+    reprompt_text = "Please tell me from where you want the contest details by saying, " \
+                    "When is the codeforces next contest."
+    should_end_session = False
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+
 def handle_session_end_request():
     card_title = "Session Ended"
     speech_output = "Thank you for trying Amazon Alexa Contest Notify Skills Kit. " \
@@ -337,15 +369,30 @@ def on_intent(intent_request, session):
 
     intent = intent_request['intent']
     intent_name = intent_request['intent']['name']
-    website = intent_request['intent']['slots']['WebsiteName']['value']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "NextContestIntent" and website.lower() == "codechef":
-        return getNextCodechefContest(intent, session)
-    elif intent_name == "CurrentContestIntent" and website.lower() == "codechef":
-        return getCurrrentCodechefContest(intent, session)
+    if intent_name == "NextContestIntent":
+        website = intent_request['intent']['slots']['WebsiteName']['value']
+        if website.lower() == "codeforces":
+            return getNextCodeforcesContest(intent, session)
+        elif website.lower == "codechef":
+            return getNextCodechefContest(intent, session)
+        elif website.lower() == "hackerrank":
+            return getNextHackerrankContest(intent, session)
+        else:
+            return getErrorMessage()
+    elif intent_name == "CurrentContestIntent":
+        website = intent_request['intent']['slots']['WebsiteName']['value']
+        if website.lower() == "codeforces":
+            return getCurrrentCodeforcesContest(intent, session)
+        elif website.lower == "codechef":
+            return getCurrrentCodechefContest(intent, session)
+        elif website.lower() == "hackerrank":
+            return getCurrrentHackerrankContest(intent, session)
+        else:
+            return getErrorMessage()
     elif intent_name == "AMAZON.HelpIntent":
-        return get_welcome_response()
+        return getHelpContent()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     else:
