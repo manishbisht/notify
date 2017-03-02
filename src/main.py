@@ -48,7 +48,7 @@ def get_welcome_response():
     card_title = "Welcome"
     speech_output = "Welcome to the Amazon Alexa Contest Notify Skills Kit. " \
                     "Please tell me from where you want the contest details by saying, " \
-                    "When is the codeforces next contest."
+                    "When is the codeforces next contest or Is there any contest running on codechef."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "Please tell me from where you want the contest details by saying, " \
@@ -78,7 +78,7 @@ def getHelpContent():
 def getErrorMessage():
     session_attributes = {}
     card_title = "Help Content"
-    speech_output = "If you just said something then I can't understand it." \
+    speech_output = "If you just said something then I can't understand it. " \
                     "Please ask me questions by saying When is the codefoces next contest, " \
                     "or Is there any contest running on codechef. " \
         # If the user either does not reply to the welcome message or says something
@@ -372,23 +372,29 @@ def on_intent(intent_request, session):
 
     # Dispatch to your skill's intent handlers
     if intent_name == "NextContestIntent":
-        website = intent_request['intent']['slots']['WebsiteName']['value']
-        if website.lower() == "codeforces":
-            return getNextCodeforcesContest(intent, session)
-        elif website.lower == "codechef":
-            return getNextCodechefContest(intent, session)
-        elif website.lower() == "hackerrank":
-            return getNextHackerrankContest(intent, session)
+        website = intent_request['intent']['slots']['WebsiteName']
+        if 'value' in website:
+            if website['value'].lower() == "codeforces" or website['value'].lower() == "code forces":
+                return getNextCodeforcesContest(intent, session)
+            elif website['value'].lower == "codechef" or website['value'].lower == "code chef":
+                return getNextCodechefContest(intent, session)
+            elif website['value'].lower() == "hackerrank" or website['value'].lower() == "hacker rank":
+                return getNextHackerrankContest(intent, session)
+            else:
+                return getErrorMessage()
         else:
             return getErrorMessage()
     elif intent_name == "CurrentContestIntent":
-        website = intent_request['intent']['slots']['WebsiteName']['value']
-        if website.lower() == "codeforces":
-            return getCurrrentCodeforcesContest(intent, session)
-        elif website.lower == "codechef":
-            return getCurrrentCodechefContest(intent, session)
-        elif website.lower() == "hackerrank":
-            return getCurrrentHackerrankContest(intent, session)
+        website = intent_request['intent']['slots']['WebsiteName']
+        if 'value' in website:
+            if website['value'].lower() == "codeforces" or website['value'].lower() == "code forces":
+                return getCurrrentCodeforcesContest(intent, session)
+            elif website['value'].lower == "codechef" or website['value'].lower == "code chef":
+                return getCurrrentCodechefContest(intent, session)
+            elif website['value'].lower() == "hackerrank" or website['value'].lower() == "hacker rank":
+                return getCurrrentHackerrankContest(intent, session)
+            else:
+                return getErrorMessage()
         else:
             return getErrorMessage()
     elif intent_name == "AMAZON.HelpIntent":
