@@ -1,4 +1,7 @@
 LIST_OF_WEBSITES
 Codechef
+Code chef
 Codeforces
+Code forces
 Hackerrank
+Hacker rank
