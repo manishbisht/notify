@@ -103,13 +103,17 @@ def nextContest(intent, session):
     """ Get the next contest details and prepares the speech to reply to the user.
     """
     if 'WebsiteName' in intent['slots']:
-        website = intent['slots']['WebsiteName']['value']
-        if website.lower() == "codeforces" or website.lower() == "code forces":
-            return getNextCodeforcesContest(intent, session)
-        elif website.lower() == "codechef" or website.lower() == "code chef":
-            return getNextCodechefContest(intent, session)
-        elif website.lower() == "hackerrank" or website.lower() == "hacker rank":
-            return getNextHackerrankContest(intent, session)
+        website = intent['slots']['WebsiteName']
+        if 'value' in website:
+            website = website['value']
+            if website.lower() == "codeforces" or website.lower() == "code forces":
+                return getNextCodeforcesContest(intent, session)
+            elif website.lower() == "codechef" or website.lower() == "code chef":
+                return getNextCodechefContest(intent, session)
+            elif website.lower() == "hackerrank" or website.lower() == "hacker rank":
+                return getNextHackerrankContest(intent, session)
+            else:
+                return getErrorMessage()
         else:
             return getErrorMessage()
     else:
@@ -119,13 +123,17 @@ def currentContest(intent, session):
     """ Get the current contest details and prepares the speech to reply to the user.
     """
     if 'WebsiteName' in intent['slots']:
-        website = intent['slots']['WebsiteName']['value']
-        if website.lower() == "codeforces" or website.lower() == "code forces":
-            return getCurrrentCodeforcesContest(intent, session)
-        elif website.lower() == "code chef" or website.lower() == "code chef":
-            return getCurrrentCodechefContest(intent, session)
-        elif website.lower() == "hackerrank" or website.lower() == "hacker rank":
-            return getCurrrentHackerrankContest(intent, session)
+        website = intent['slots']['WebsiteName']
+        if 'value' in website:
+            website = website['value']
+            if website.lower() == "codeforces" or website.lower() == "code forces":
+                return getCurrrentCodeforcesContest(intent, session)
+            elif website.lower() == "code chef" or website.lower() == "code chef":
+                return getCurrrentCodechefContest(intent, session)
+            elif website.lower() == "hackerrank" or website.lower() == "hacker rank":
+                return getCurrrentHackerrankContest(intent, session)
+            else:
+                return getErrorMessage()
         else:
             return getErrorMessage()
     else:
@@ -145,10 +153,10 @@ def getNextCodeforcesContest(intent, session):
     if data["status"] == "OK":
         result = []
         for d in data["result"]:
-            if d["phase"] == "FINISHED":
+            if d["phase"] != "BEFORE":
                 break
             result = d
-        if result == []:
+        if not result:
             speech_output = "There are no upcoming contest on codeforces."
         else:
             now = result["startTimeSeconds"]
@@ -187,8 +195,8 @@ def getCurrrentCodeforcesContest(intent, session):
         if result == []:
             speech_output = "There is no contest running on codeforces."
         else:
-            now = result["startTimeSeconds"] + result["durationSeconds"]
-            then = int(time.time())
+            then = result["startTimeSeconds"] + result["durationSeconds"]
+            now = int(time.time())
             d = divmod(then - now, 86400)
             h = divmod(d[1], 3600)
             m = divmod(h[1], 60)
