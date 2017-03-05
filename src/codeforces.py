@@ -7,7 +7,7 @@ speech_output = "There are no upcoming contest on codeforces."
 if data["status"] == "OK":
     result = []
     for d in data["result"]:
-        if d["phase"] == "FINISHED":
+        if d["phase"] != "BEFORE":
             break
         result = d
     if result == []:
@@ -40,8 +40,8 @@ if data["status"] == "OK":
     if result == []:
         speech_output = "There is no contest running on codeforces."
     else:
-        now = result["startTimeSeconds"] + result["durationSeconds"]
-        then = int(time.time())
+        then = result["startTimeSeconds"] + result["durationSeconds"]
+        now = int(time.time())
         d = divmod(then - now, 86400)
         h = divmod(d[1], 3600)
         m = divmod(h[1], 60)
