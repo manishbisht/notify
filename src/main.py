@@ -107,11 +107,11 @@ def nextContest(intent, session):
         if 'value' in website:
             website = website['value']
             if website.lower() == "codeforces" or website.lower() == "code forces":
-                return getNextCodeforcesContest(intent, session)
+                return getNextCodeforcesContest()
             elif website.lower() == "codechef" or website.lower() == "code chef":
-                return getNextCodechefContest(intent, session)
+                return getNextCodechefContest()
             elif website.lower() == "hackerrank" or website.lower() == "hacker rank":
-                return getNextHackerrankContest(intent, session)
+                return getNextHackerrankContest()
             else:
                 return getErrorMessage()
         else:
@@ -127,11 +127,11 @@ def currentContest(intent, session):
         if 'value' in website:
             website = website['value']
             if website.lower() == "codeforces" or website.lower() == "code forces":
-                return getCurrrentCodeforcesContest(intent, session)
+                return getCurrrentCodeforcesContest()
             elif website.lower() == "code chef" or website.lower() == "code chef":
-                return getCurrrentCodechefContest(intent, session)
+                return getCurrrentCodechefContest()
             elif website.lower() == "hackerrank" or website.lower() == "hacker rank":
-                return getCurrrentHackerrankContest(intent, session)
+                return getCurrrentHackerrankContest()
             else:
                 return getErrorMessage()
         else:
@@ -139,7 +139,7 @@ def currentContest(intent, session):
     else:
         return getErrorMessage()
 
-def getNextCodeforcesContest(intent, session):
+def getNextCodeforcesContest(type=None):
     """ Get the next codeforces contest details and prepares the speech to reply to the user.
     """
     card_title = "Codeforces Next Contest Details"
@@ -168,11 +168,14 @@ def getNextCodeforcesContest(intent, session):
             speech_output = "The next contest on codeforces " + result["name"] + " will start in " \
                                                                                  '%d days, %d hours, %d minutes, %d seconds' % (
                                                                                      d[0], h[0], m[0], s)
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    if type:
+        return {"speech": speech_output}
+    else:
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, reprompt_text, should_end_session))
 
 
-def getCurrrentCodeforcesContest(intent, session):
+def getCurrrentCodeforcesContest(type=None):
     """ Get the current codeforces contest details and prepares the speech to reply to the user.
     """
     card_title = "Codeforces Current Contest Details"
@@ -204,11 +207,14 @@ def getCurrrentCodeforcesContest(intent, session):
             speech_output = "The contest " + result["name"] + " will end in " \
                                                               '%d days, %d hours, %d minutes, %d seconds' % (
                                                                   d[0], h[0], m[0], s)
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    if type:
+        return {"speech": speech_output}
+    else:
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, reprompt_text, should_end_session))
 
 
-def getNextCodechefContest(intent, session):
+def getNextCodechefContest(type=None):
     """ Get the next codechef contest details and prepares the speech to reply to the user.
     """
     card_title = "Codechef Next Contest Details"
@@ -246,11 +252,14 @@ def getNextCodechefContest(intent, session):
                                                                  d[0], h[0], m[0], s)
     else:
         speech_output = "There are no upcoming contest on codechef."
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    if type:
+        return {"speech": speech_output}
+    else:
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, reprompt_text, should_end_session))
 
 
-def getCurrrentCodechefContest(intent, session):
+def getCurrrentCodechefContest(type=None):
     """ Get the current codechef contest details and prepares the speech to reply to the user.
     """
     card_title = "Codechef Current Contest Details"
@@ -283,11 +292,14 @@ def getCurrrentCodechefContest(intent, session):
                                                             d[0], h[0], m[0], s)
     else:
         speech_output = "There is no contest running on codechef."
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    if type:
+        return {"speech": speech_output}
+    else:
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, reprompt_text, should_end_session))
 
 
-def getNextHackerrankContest(intent, session):
+def getNextHackerrankContest(type=None):
     """ Get the next hackerrank contest details and prepares the speech to reply to the user.
     """
     card_title = "Hackerrank Next Contest Details"
@@ -329,11 +341,14 @@ def getNextHackerrankContest(intent, session):
                                                                              '%d days, %d hours, %d minutes, %d seconds' % (
                                                                                  d[0], h[0], m[0], s)
                         break
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    if type:
+        return {"speech": speech_output}
+    else:
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, reprompt_text, should_end_session))
 
 
-def getCurrrentHackerrankContest(intent, session):
+def getCurrrentHackerrankContest(type=None):
     """ Get the current hackerrank contest details and prepares the speech to reply to the user.
     """
     card_title = "Hackerrank Current Contest Details"
@@ -376,8 +391,11 @@ def getCurrrentHackerrankContest(intent, session):
                 speech_output = "The contest " + contest_name + " on hackerrank is running and it will end in " \
                                                                 '%d days, %d hours, %d minutes, %d seconds' % (
                                                                     d[0], h[0], m[0], s)
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    if type:
+        return {"speech": speech_output}
+    else:
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, reprompt_text, should_end_session))
 
 
 # --------------- Events ------------------
@@ -437,25 +455,32 @@ def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
-    print("event.session.application.applicationId=" +
-          event['session']['application']['applicationId'])
+    if 'id' in event:
+        if event['result']['metadata']['intentName'] == 'NextContestIntent':
+            if event['result']['parameters']['WebsiteName'] == "codeforces":
+                return getNextCodeforcesContest(event['result']['source'])
+            elif event['result']['parameters']['WebsiteName'] == "codechef":
+                return getNextCodechefContest(event['result']['source'])
+            elif event['result']['parameters']['WebsiteName'] == "hackerrank":
+                return getNextHackerrankContest(event['result']['source'])
+        elif event['result']['metadata']['intentName'] == 'CurrentContestIntent':
+            if event['result']['parameters']['WebsiteName'] == "codeforces":
+                return getCurrrentCodeforcesContest(event['result']['source'])
+            elif event['result']['parameters']['WebsiteName'] == "codechef":
+                return getCurrrentCodechefContest(event['result']['source'])
+            elif event['result']['parameters']['WebsiteName'] == "hackerrank":
+                return getCurrrentHackerrankContest(event['result']['source'])
 
-    """
-    Uncomment this if statement and populate with your skill's application ID to
-    prevent someone else from configuring a skill that sends requests to this
-    function.
-    """
-    # if (event['session']['application']['applicationId'] !=
-    #         "amzn1.echo-sdk-ams.app.[unique-value-here]"):
-    #     raise ValueError("Invalid Application ID")
+    else:
+        print("event.session.application.applicationId=" +
+            event['session']['application']['applicationId'])
 
-    if event['session']['new']:
-        on_session_started({'requestId': event['request']['requestId']},
-                           event['session'])
+        if event['session']['new']:
+            on_session_started({'requestId': event['request']['requestId']}, event['session'])
 
-    if event['request']['type'] == "LaunchRequest":
-        return on_launch(event['request'], event['session'])
-    elif event['request']['type'] == "IntentRequest":
-        return on_intent(event['request'], event['session'])
-    elif event['request']['type'] == "SessionEndedRequest":
-        return on_session_ended(event['request'], event['session'])
+        if event['request']['type'] == "LaunchRequest":
+            return on_launch(event['request'], event['session'])
+        elif event['request']['type'] == "IntentRequest":
+            return on_intent(event['request'], event['session'])
+        elif event['request']['type'] == "SessionEndedRequest":
+            return on_session_ended(event['request'], event['session'])
