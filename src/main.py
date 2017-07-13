@@ -91,8 +91,7 @@ def getErrorMessage():
 
 def googleActionsError():
     speech_output = "If you just said something then I can't understand it. " \
-                    "Please ask me questions by saying When is the codefoces next contest, " \
-                    "or Is there any contest running on codechef. "
+                    "Please try again later."
     return {"speech": speech_output}
 
 def handle_session_end_request():
