@@ -89,6 +89,11 @@ def getErrorMessage():
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
+def googleActionsError():
+    speech_output = "If you just said something then I can't understand it. " \
+                    "Please ask me questions by saying When is the codefoces next contest, " \
+                    "or Is there any contest running on codechef. "
+    return {"speech": speech_output}
 
 def handle_session_end_request():
     card_title = "Session Ended"
@@ -463,6 +468,8 @@ def lambda_handler(event, context):
                 return getNextCodechefContest(event['result']['source'])
             elif event['result']['parameters']['WebsiteName'] == "hackerrank":
                 return getNextHackerrankContest(event['result']['source'])
+            else:
+                return googleActionsError()
         elif event['result']['metadata']['intentName'] == 'CurrentContestIntent':
             if event['result']['parameters']['WebsiteName'] == "codeforces":
                 return getCurrrentCodeforcesContest(event['result']['source'])
@@ -470,6 +477,10 @@ def lambda_handler(event, context):
                 return getCurrrentCodechefContest(event['result']['source'])
             elif event['result']['parameters']['WebsiteName'] == "hackerrank":
                 return getCurrrentHackerrankContest(event['result']['source'])
+            else:
+                return googleActionsError()
+        else:
+            return googleActionsError()
 
     else:
         print("event.session.application.applicationId=" +
